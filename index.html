@@ -8,53 +8,101 @@
         body {
             background-color: black;
             color: white;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
             text-align: center;
+            flex-direction: column;
         }
         #countdown {
-            font-size: 48px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 60px;
         }
-        #video-link {
-            display: none;
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .time-unit span {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
             margin-top: 20px;
-            font-size: 24px;
-            text-decoration: underline;
-            color: lightblue;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: white;
+            color: black;
         }
     </style>
 </head>
 <body>
-    <div>
-        <div id="countdown">10</div>
-        <a id="video-link" href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">Ver Video</a>
+
+    <div id="countdown">
+        <div class="time-unit">
+            <div id="days"></div>
+            <span>Días</span>
+        </div>
+        <div class="time-unit">
+            <div id="hours"></div>
+            <span>Horas</span>
+        </div>
+        <div class="time-unit">
+            <div id="minutes"></div>
+            <span>Minutos</span>
+        </div>
+        <div class="time-unit">
+            <div id="seconds"></div>
+            <span>Segundos</span>
+        </div>
     </div>
 
+    <a href="https://www.youtube.com/watch?v=Fh6XXxBHy6c" target="_blank">Mira el video</a>
+
     <script>
-        // Tiempo inicial en segundos
-        let timeLeft = 10;
+        // Configuración de la fecha y hora de finalización
+        var countdownDate = new Date("2024-08-20T20:00:00").getTime();
 
-        const countdownElement = document.getElementById('countdown');
-        const videoLinkElement = document.getElementById('video-link');
+        // Actualizar la cuenta regresiva cada segundo
+        var countdownFunction = setInterval(function() {
 
-        // Función que actualiza la cuenta regresiva
-        function updateCountdown() {
-            if (timeLeft > 0) {
-                countdownElement.textContent = timeLeft;
-                timeLeft--;
-            } else {
-                countdownElement.textContent = '¡Tiempo agotado!';
-                videoLinkElement.style.display = 'block';
-                clearInterval(countdownInterval);
+            // Obtener la fecha y hora actual
+            var now = new Date().getTime();
+            
+            // Calcular la distancia entre ahora y la fecha de finalización
+            var distance = countdownDate - now;
+            
+            // Calcular días, horas, minutos y segundos
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Mostrar la cuenta regresiva en los elementos correspondientes
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+            
+            // Si la cuenta regresiva ha terminado
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "¡Es hora!";
             }
-        }
-
-        // Actualiza la cuenta regresiva cada segundo
-        const countdownInterval = setInterval(updateCountdown, 1000);
+        }, 1000);
     </script>
+
 </body>
 </html>
