@@ -39,12 +39,33 @@
             margin-top: 20px;
             border: 2px solid white;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 20px; /* Botón redondeado */
             transition: background-color 0.3s ease;
         }
         a:hover {
             background-color: white;
             color: black;
+        }
+        .social-buttons {
+            margin-top: 30px;
+        }
+        .social-buttons a {
+            display: inline-block;
+            margin: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: black;
+            font-size: 20px;
+            line-height: 40px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .social-buttons a:hover {
+            background-color: black;
+            color: white;
         }
     </style>
 </head>
@@ -71,9 +92,18 @@
 
     <a href="https://www.youtube.com/watch?v=Fh6XXxBHy6c" target="_blank">Mira el video</a>
 
+    <div class="social-buttons">
+        <!-- Botones de Instagram -->
+        <a href="https://www.instagram.com/jjuampaaa" target="_blank">JJ</a>
+        <a href="https://www.instagram.com/emidursi" target="_blank">EM</a>
+    </div>
+
     <script>
-        // Configuración de la fecha y hora de finalización
-        var countdownDate = new Date("2024-08-20T20:00:00").getTime();
+        // Configuración de la fecha y hora de finalización para mañana a las 20:00
+        var countdownDate = new Date();
+        countdownDate.setHours(20, 0, 0, 0);
+        countdownDate.setDate(countdownDate.getDate() + 1);
+        countdownDate = countdownDate.getTime();
 
         // Actualizar la cuenta regresiva cada segundo
         var countdownFunction = setInterval(function() {
